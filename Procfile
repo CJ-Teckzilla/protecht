@@ -1,0 +1,1 @@
+web: gunicorn protecht.wsgi --log-file -
