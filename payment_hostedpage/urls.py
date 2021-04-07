@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path("", views.index, name="detail"),
+    path("", views.test, name="test"),
     path("success/<str:order_num>", views.display, name="display"),
 ]
