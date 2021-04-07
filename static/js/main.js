@@ -1,4 +1,38 @@
-document.getElementById('submit_data').addEventListener("click", field_validation);
+document.getElementById('btn_proceed').addEventListener("click", field_validation);
+
+btn_submit = document.getElementById("submit_data");
+if (btn_submit!= undefined){
+    btn_submit.addEventListener("click", modal_field_validation);
+}
+
+document.getElementById("btn_close").addEventListener("click",add_impression);
+
+function add_impression() {
+    quote_token = tg.get('token');
+    fetch("https://connect-sandbox.ticketguardian.net/api/v2/auth/token/",
+    {
+        method: "POST",
+        headers:{
+        'Content-type': 'application/json'
+        },
+        body: JSON.stringify({"public_key": "pk_sandbox_c24dc55e4d07719b80c0916ce8a28e4dbf6a048f",
+                "secret_key": "sk_sandbox_ea7865b84b0f4b762bd2d934ad1f750b84b5a3ba"})
+    })
+    .then(response => {return response.json()})
+    .then((data) => { fetch("https://api.ticketguardian-sandbox.com/impressions/",
+        {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "JWT "+  data.token
+            },
+            body: JSON.stringify({"quote_token": quote_token})
+        })
+        .then(response => {return response.json()})
+        .then(data1 => console.log(data1))
+        }
+    );
+}
 
 function retrieve_data() {
     console.log("retrieve DAta");
@@ -26,7 +60,9 @@ function retrieve_data() {
     //getting card Details
     let card_data = document.getElementById("card").getElementsByClassName("form-control");
     let card_details = extract_data(card_data);
-
+    // Retrieving Email Address and storing it in customer_data instance
+    customer_data["email"] = document.getElementById("email").value;
+    // consolading the required data
     let all_data = {
         "quote": tg.get("token"),
         "customer": customer_data,
@@ -89,8 +125,32 @@ function extract_data(data){
 }
 
 function field_validation(){
-     const required_fields = ["order_number", "first_name", "last_name", "email", "address1", "city", "state", "zip_code", "country","name", "reference_number", "cost", "number", "expiry_month", "expiry_year", "cvv"];
-     const messages = ["Order Number", "First Name", "Last Name", "Email", "Address 1", "City", "State", "Zip Code", "Country", "Name", "Reference Number", "Cost", "Card Number", "Expiry Month", "Expiry Year", "CVV"];
+     const required_fields = ["order_number", "first_name", "last_name", "address1", "city", "state", "zip_code", "country","name", "reference_number", "cost"];
+     const messages = ["Order Number", "First Name", "Last Name", "Email", "Address 1", "City", "State", "Zip Code", "Country", "Name", "Reference Number", "Cost"];
+     let error = false;
+    // Validating Field
+    for(let x in required_fields){
+            field = document.getElementById(required_fields[x]);
+            if (field.value === ""){
+                setErrorFor(field, messages[x] +" is required field");
+                error = true;
+
+            }
+            else{
+                setSuccessFor(field);
+            }
+    }
+
+    if (error == false){
+        document.getElementById("btn_modal").click();
+
+    }
+
+}
+
+function modal_field_validation(){
+     const required_fields = ["email", "number", "expiry_month", "expiry_year", "cvv"];
+     const messages = ["Email", "Card Number", "Expiry Month", "Expiry Year", "CVV"];
      let error = false;
     // Validating Field
     for(let x in required_fields){
@@ -107,6 +167,7 @@ function field_validation(){
     if (error == false){
         retrieve_data();
     }
+
 }
 
 function setErrorFor(input, message) {
