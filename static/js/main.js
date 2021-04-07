@@ -37,7 +37,7 @@ function retrieve_data() {
         "currency": "USD",
         "items": [item_details],
     };
-    //send_request(all_data);
+    send_request(all_data);
 }
 
 function send_request(all_data){
