@@ -1,4 +1,7 @@
-document.getElementById('submit_data').addEventListener("click", function(){
+document.getElementById('submit_data').addEventListener("click", field_validation);
+
+function retrieve_data() {
+    console.log("retrieve DAta");
     // getting customer Data
     var customer_details = document.getElementById("customer").getElementsByClassName("form-control");
     let customer_data = extract_data(customer_details);
@@ -25,16 +28,17 @@ document.getElementById('submit_data').addEventListener("click", function(){
     let card_details = extract_data(card_data);
 
     let all_data = {
+        "quote": tg.get("token"),
         "customer": customer_data,
         "billing_address": billing_address,
-        "ship_to_billing_addr": shipping_address_status,
+        "ship_to_billing_addr": true,
         "card": card_details,
         "order_number": order_number,
         "currency": "USD",
         "items": [item_details],
     };
-    send_request(all_data);
-});
+    //send_request(all_data);
+}
 
 function send_request(all_data){
    fetch("https://connect-sandbox.ticketguardian.net/api/v2/auth/token/",
@@ -82,4 +86,45 @@ function extract_data(data){
        new_data[data[i].id] = data[i].value;
     }
     return new_data;
+}
+
+function field_validation(){
+     const required_fields = ["order_number", "first_name", "last_name", "email", "address1", "city", "state", "zip_code", "country","name", "reference_number", "cost", "number", "expiry_month", "expiry_year", "cvv"];
+     const messages = ["Order Number", "First Name", "Last Name", "Email", "Address 1", "City", "State", "Zip Code", "Country", "Name", "Reference Number", "Cost", "Card Number", "Expiry Month", "Expiry Year", "CVV"];
+     let error = false;
+    // Validating Field
+    for(let x in required_fields){
+            field = document.getElementById(required_fields[x]);
+            if (field.value === ""){
+                setErrorFor(field, messages[x] +" is required field");
+                error = true;
+            }
+            else{
+                setSuccessFor(field);
+            }
+    }
+
+    if (error == false){
+        retrieve_data();
+    }
+}
+
+function setErrorFor(input, message) {
+	const formControl = input.parentElement;
+	const label = formControl.querySelector('label');
+	label.className = 'form-label text-danger';
+	const small = formControl.querySelector('small');
+	input.className = 'form-control error';
+	small.innerText = message;
+	small.className = "text-danger";
+}
+
+function setSuccessFor(input) {
+    const formControl = input.parentElement;
+	const label = formControl.querySelector('label');
+	label.className = 'form-label';
+	const small = formControl.querySelector('small');
+	input.className = 'form-control';
+	small.innerText = "";
+	small.className = "";
 }

@@ -19,3 +19,7 @@ def get_token():
      "secret_key": "sk_sandbox_ea7865b84b0f4b762bd2d934ad1f750b84b5a3ba"}
     response = requests.post("https://connect-sandbox.ticketguardian.net/api/v2/auth/token/",data=data)
     return response.json().get("token")
+
+
+def test(request):
+    return render(request, "home.html")
