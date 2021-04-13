@@ -35,7 +35,8 @@
     }
   });
 </script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">-->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 <style>
     .error{
 	    border-color: #e74c3c !important;
@@ -44,229 +45,222 @@
 </head>
 <body>
 
-<div class="container mt-5">
-    <div id="display-error"></div>
+<div class="container mt-5 mb-5">
     <div class="row">
-        <div class="col-lg-8">
-            <div class="row">
+    <div class="bg-white border col-lg-8 m-auto p-5">
+    <div id="display-error"></div>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-customer-details-tab" data-toggle="pill" href="#pills-customer-details" role="tab" aria-controls="pills-customer-details" aria-selected="true">Customer Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-billing-address-tab" data-toggle="pill" href="#pills-billing-address" role="tab" aria-controls="pills-billing-address" aria-selected="false">Billing Address</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-shipping-address-tab" data-toggle="pill" href="#pills-shipping-address" role="tab" aria-controls="pills-shipping-address" aria-selected="false">Shipping Address</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-item-details-tab" data-toggle="pill" href="#pills-item-details" role="tab" aria-controls="pills-item-details" aria-selected="false">Item Details</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-customer-details" role="tabpanel" aria-labelledby="pills-customer-details-tab">
+            <div class="row" id="customer">
                 <div class="col-lg-6">
-                    <div class="mb-3">
-                        <label class="form-label">Order Number</label>
-                        <input type="text" class="form-control" id="order_number" required>
+                    <div class="form-group">
+                        <label for="first_name" class="bmd-label-floating">First Name</label>
+                        <input type="text" name="first_name" id="first_name" class="form-control-sm form-control" required>
                         <small></small>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="mb-3">
-                        <label class="form-label">Currency</label>
-                        <input type="text" class="form-control" id="currency" value="USD">
+                    <div class="form-group">
+                        <label for="last_name" class="bmd-label-floating">Last Name</label>
+                        <input type="text" name="last_name" id="last_name" class="form-control-sm form-control" required>
+                        <small></small>
                     </div>
                 </div>
-            </div>
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-                <!-- Adding Customer Details -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Customer Details
-                      </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body">
-                            <div class="row" id="customer">
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label fs-6">First Name</label>
-                                <input type="text" id="first_name" class="form-control" required>
-                                <small></small>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" id="last_name" class="form-control" required>
-                                <small></small>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Phone</label>
-                                <input type="email" id="phone" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                      </div>
-                    </div>
-                </div>
-                <!-- Billing Address -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-billingdetails">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsetwo" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Billing Address
-                      </button>
-                    </h2>
-                    <div id="flush-collapsetwo" class="accordion-collapse collapse" aria-labelledby="flush-billingdetails" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body">
-                          <div class="row" id="billing">
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Address 1</label>
-                                    <input type="text" id="address1" class="form-control">
-                                    <small></small>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Address 2</label>
-                                    <input type="text" id="address2" class="form-control">
-                                    <small></small>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">City</label>
-                                    <input type="text" id="city" class="form-control">
-                                    <small></small>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">State</label>
-                                    <input type="text" id="state" class="form-control">
-                                    <small></small>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Zip Code</label>
-                                    <input type="text" id="zip_code" class="form-control">
-                                    <small></small>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Country</label>
-                                    <input type="text" id="country" class="form-control">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <!-- Shipping Address -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-Shippingdetails">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsethree" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Shipping Address
-                      </button>
-                    </h2>
-                    <div id="flush-collapsethree" class="accordion-collapse collapse" aria-labelledby="flush-Shippingdetails" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body">
-                            <div class="row" id="shipping">
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="sameasbilling">
-                                        <label class="form-check-label" for="sameasbilling">Use Same as Billing Address</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Address 1</label>
-                                    <input type="text" class="form-control" id="address1">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Address 2</label>
-                                    <input type="text" class="form-control" id="address2">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" id="city">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">State</label>
-                                    <input type="text" class="form-control" id="state">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Zip Code</label>
-                                    <input type="text" class="form-control" id="zip_code">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Country</label>
-                                    <input type="text" class="form-control" id="country">
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <!-- Item Details -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-itemdetails">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsefour" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Item Details
-                      </button>
-                    </h2>
-                    <div id="flush-collapsefour" class="accordion-collapse collapse" aria-labelledby="flush-itemdetails" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body">
-                            <div class="row" id="item">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" value="Mobile">
-                                            <small></small>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Reference Number</label>
-                                            <input type="text" class="form-control" id="reference_number" value="1234">
-                                            <small></small>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Cost</label>
-                                            <input type="number" class="form-control" id="cost" value="1">
-                                            <small></small>
-                                        </div>
-                                    </div>
-                                </div>
-                      </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="phone" class="bmd-label-floating">Phone</label>
+                        <input type="text" name="phone" id="phone" class="form-control-sm form-control" >
+                        <small></small>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="tab-pane fade" id="pills-billing-address" role="tabpanel" aria-labelledby="pills-billing-address-tab">
+            <div class="row" id="billing">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="address1" class="bmd-label-floating">Address 1</label>
+                        <input type="text" name="address1" id="address1" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="address2" class="bmd-label-floating">Address 2</label>
+                        <input type="text" name="address2" id="address2" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="city" class="bmd-label-floating">City</label>
+                        <input type="text" name="city" id="city" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="state" class="bmd-label-floating">State</label>
+                        <input type="text" name="state" id="state" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="zip_code" class="bmd-label-floating">Zip Code</label>
+                        <input type="text" name="zip_code" id="zip_code" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="country" class="bmd-label-floating">Country</label>
+                        <input type="text" name="country" id="country" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+            </div>
 
 
+
+        </div>
+        <div class="tab-pane fade" id="pills-shipping-address" role="tabpanel" aria-labelledby="pills-shipping-address-tab">
+            <div class="row" id="shipping">
+                <div class="col-lg-12">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked id="sameasbilling">Use Same as Billing Address
+                        </label>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="shipping_address1" class="bmd-label-floating">Address 1</label>
+                        <input type="text" name="shipping_address1" id="shipping_address1" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="shipping_address2" class="bmd-label-floating">Address 2</label>
+                        <input type="text" name="shipping_address2" id="shipping_address2" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="shipping_city" class="bmd-label-floating">City</label>
+                        <input type="text" name="shipping_city" id="shipping_city" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="shipping_state" class="bmd-label-floating">State</label>
+                        <input type="text" name="shipping_state" id="shipping_state" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="shipping_zip_code" class="bmd-label-floating">Zip Code</label>
+                        <input type="text" name="shipping_zip_code" id="shipping_zip_code" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="shipping_country" class="bmd-label-floating">Country</label>
+                        <input type="text" name="shipping_country" id="shipping_country" class="form-control-sm form-control">
+                        <small></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-item-details" role="tabpanel" aria-labelledby="pills-item-details-tab">
+            <div class="row" id="item">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="name" class="bmd-label-floating">Name</label>
+                        <input type="text" name="name" id="name" class="form-control-sm form-control" value="Mobile">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="reference_number" class="bmd-label-floating">Reference Number</label>
+                        <input type="text" name="reference_number" id="reference_number" class="form-control-sm form-control" value="1234">
+                        <small></small>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="cost" class="bmd-label-floating">Cost</label>
+                        <input type="text" name="cost" id="cost" class="form-control-sm form-control" value="1">
+                        <small></small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="button" class="btn btn-primary" id="btn_proceed">Proceed Further</button>
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" id="btn_modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop" hidden>
+    
+    <hr>
+    <div class="row" id="general">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="order_number" class="bmd-label-floating">Order Number</label>
+                <input type="text" name="order_number" id="order_number" class="form-control-sm form-control" required>
+                <small></small>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="currency" class="bmd-label-floating">Currency</label>
+                <input type="text" name="currency" id="currency" class="form-control-sm form-control" value="USD" required>
+            </div>
+        </div>
+    </div>
+    
+    
+    <button type="button" class="btn btn-primary btn-raised mt-3" id="btn_proceed">Proceed Further</button>
+    </div>
+    </div>
+    
+
+    
+    <button type="button" class="btn btn-primary" id="btn_modal" data-toggle="modal" data-target="#staticBackdrop" hidden>
   Proceed Further
 </button>
+    
+    
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fw-bold" id="staticBackdropLabel">Payment Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"></button>
+        <button type="button" class="btn-close" data-dismiss="modal"  aria-label="Close"></button>
       </div>
       <div class="modal-body">
           <div id="tg-placeholder"></div>
@@ -278,39 +272,39 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email">
+                        <div class="form-group">
+                            <label for="email" class="bmd-label-floating">Email</label>
+                            <input type="text" name="email" id="email" class="form-control-sm form-control">
                             <small></small>
                         </div>
                     </div>
                 </div>
                 <div class="row" id="card">
                     <div class="col-lg-12">
-                        <div class="mb-3">
-                            <label class="form-label">Card Number</label>
-                            <input type="number" class="form-control" id="number">
+                        <div class="form-group">
+                            <label for="number" class="bmd-label-floating">Card Number</label>
+                            <input type="number" name="number" id="number" class="form-control-sm form-control">
                             <small></small>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Expiry Month</label>
-                            <input type="number" class="form-control" id="expiry_month">
+                        <div class="form-group">
+                            <label for="expiry_month" class="bmd-label-floating">Expiry Month</label>
+                            <input type="number" name="expiry_month" id="expiry_month" class="form-control-sm form-control">
                             <small></small>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Expiry Year</label>
-                            <input type="number" class="form-control" id="expiry_year">
+                        <div class="form-group">
+                            <label for="expiry_year" class="bmd-label-floating">Expiry Year</label>
+                            <input type="number" name="expiry_year" id="expiry_year" class="form-control-sm form-control">
                             <small></small>
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="mb-3">
-                            <label class="form-label">CVV</label>
-                            <input type="number" class="form-control" id="cvv">
+                        <div class="form-group">
+                            <label for="cvv" class="bmd-label-floating">CVV</label>
+                            <input type="number" name="cvv" id="cvv" class="form-control-sm form-control">
                             <small></small>
                         </div>
                     </div>
@@ -327,15 +321,20 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btn_close">Close</button>
-        <input type="button" value="Make Payment" class="btn btn-success" id="submit_data">
+        <button type="button" class="btn btn-secondary btn-outline" data-dismiss="modal" id="btn_close">Close</button>
+        <input type="button" value="Make Payment" class="btn btn-success btn-outline" id="submit_data">
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-<script src="{% static 'js/main.js' %}"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+<!--<script src="{% static 'js/main.js' %}"></script>-->
+<script src="../static/js/main.js"></script>
 </body>
 </html>
