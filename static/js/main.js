@@ -254,18 +254,23 @@ $('#number').focusout(function(){
     else{
         this.setCustomValidity("");
         cvv = document.getElementById("cvv");
-        if(cvv.value != ""){
-            pattern = new RegExp("^3[47][0-9]{13}$");
-            result = pattern.test(card_num);
-            if(result == true){
-                if(cvv.value.length!=4){
-                    cvv.setCustomValidity("Invalid Cvv number");
+         pattern = new RegExp("^3[47][0-9]{13}$");
+         result = pattern.test(card_num);
+         if(result == true){
+                cvv.setAttribute("maxlength", "4");
+                if(cvv.value != ""){
+                     if(cvv.value.length!=4){
+                        cvv.setCustomValidity("Invalid Cvv number");
+                    }
+                    else{
+                        cvv.setCustomValidity("");
+                    }
                 }
-                else{
-                    cvv.setCustomValidity("");
-                }
+
             }
-        }
+          else{
+            cvv.setAttribute("maxlength", "3");
+          }
     }
 });
 
