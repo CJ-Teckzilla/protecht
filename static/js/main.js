@@ -1,11 +1,10 @@
 document.getElementById('btn_proceed').addEventListener("click", field_validation);
 
-btn_submit = document.getElementById("submit_data");
-if (btn_submit!= undefined){
-    btn_submit.addEventListener("click", modal_field_validation);
-}
+document.getElementById("modal-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    modal_field_validation();});
 
-document.getElementById("btn_close").addEventListener("click",add_impression);
+document.getElementById("btn_close").addEventListener("click", add_impression);
 
 function add_impression() {
     quote_token = tg.get('token');
@@ -35,7 +34,6 @@ function add_impression() {
 }
 
 function retrieve_data() {
-    console.log("retrieve DAta");
     // getting customer Data
     var customer_details = document.getElementById("customer").getElementsByClassName("form-control");
     let customer_data = extract_data(customer_details);
@@ -147,10 +145,10 @@ function field_validation(){
     }
 
 }
-
+//
 function modal_field_validation(){
-     const required_fields = ["email", "number", "expiry_month", "expiry_year", "cvv"];
-     const messages = ["Email", "Card Number", "Expiry Month", "Expiry Year", "CVV"];
+     const required_fields = ["email", "number", "expiry_month",  "cvv"];
+     const messages = ["Email", "Card Number", "Expiry Date", "CVV"];
      let error = false;
     // Validating Field
     for(let x in required_fields){
@@ -169,7 +167,7 @@ function modal_field_validation(){
     }
 
 }
-
+//
 function setErrorFor(input, message) {
 	const formControl = input.parentElement;
 	const label = formControl.querySelector('label');
@@ -179,7 +177,7 @@ function setErrorFor(input, message) {
 	small.innerText = message;
 	small.className = "text-danger";
 }
-
+//
 function setSuccessFor(input) {
     const formControl = input.parentElement;
 	const label = formControl.querySelector('label');
@@ -189,3 +187,110 @@ function setSuccessFor(input) {
 	small.innerText = "";
 	small.className = "";
 }
+//
+//
+$("#expiry_month").focusout(function(){
+    expiry_date = this.value;
+    expiry_month = expiry_date.slice(0,2);
+    expiry_year = expiry_date.slice(3,);
+    pattern = new RegExp("(^[0][1-9]$)|(^[1][012]$)");
+    result = pattern.test(expiry_month);
+    if(result == false){
+        this.setCustomValidity("Invalid Card Number");
+    }
+    else{
+        date = new Date();
+        mnth = date.getMonth() + 1;
+        year = date.getYear().toString().slice(1,);
+        if(year==expiry_year){
+            if (expiry_month < mnth) {
+                this.setCustomValidity("Invalid Expiry Date");
+            }
+            else{
+                this.setCustomValidity("");
+            }
+        }
+        else if(expiry_year < year){
+            this.setCustomValidity("Invalid Expiry Date");
+        }
+        else if ((expiry_year == "")|(expiry_month == "")){
+            this.setCustomValidity("Invalid Expiry Date");
+        }
+        else{
+            this.setCustomValidity("");
+        }
+    }
+}
+)
+//
+$("#number").keyup(change_png);
+$("#number").focusout(change_png);
+
+
+$("#cvv").focusout(function(){
+    card_num = document.getElementById("number");
+     result = /^3[47]/g.test(card_num.value.replace(/\s+/g,""));
+     if (result==true){
+        if (this.value.length !=4) {
+            this.setCustomValidity("Invalid cvv length.");
+        }
+        else{
+            this.setCustomValidity("");
+        }
+    }
+});
+//
+$(document).ready(function(){
+  $('#number').payment('formatCardNumber');
+});
+
+$('#number').focusout(function(){
+    card_num = this.value.replace(/\s+/g,'');
+    pattern = new RegExp("(^4[0-9]{12}([0-9]{3})?$)|(^5[1-5][0-9]{14}$|^2[0-9]{15}$)|(^3[47][0-9]{13}$)|(^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(12?[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$)");
+    result = pattern.test(card_num);
+    if(result==false){
+        this.setCustomValidity("Invalid Card Number");
+    }
+    else{
+        this.setCustomValidity("");
+        cvv = document.getElementById("cvv");
+        if(cvv.value != ""){
+            pattern = new RegExp("^3[47][0-9]{13}$");
+            result = pattern.test(card_num);
+            if(result == true){
+                if(cvv.value.length!=4){
+                    cvv.setCustomValidity("Invalid Cvv number");
+                }
+                else{
+                    cvv.setCustomValidity("");
+                }
+            }
+        }
+    }
+});
+
+function change_png(){
+  if (/^4/g.test(this.value)){
+      document.getElementById("card-img").setAttribute("src", "/static/img/visa.png");
+          }
+  else if (/(^5[1-5])|(^2[0-9])/g.test(this.value)) {
+      document.getElementById("card-img").setAttribute("src", "/static/img/mastercard.png");
+  }
+  else if (/(^3[47])/g.test(this.value)){
+      document.getElementById("card-img").setAttribute("src", "/static/img/amex.png");
+  }
+  else if(/^6/g.test(this.value)){
+      document.getElementById("card-img").setAttribute("src", "/static/img/discover.png");
+  }
+  else {
+      document.getElementById("card-img").setAttribute("src", "/static/img/all_other.png");
+    }
+  }
+
+function form_reset(){
+    document.getElementById("modal-form").reset();
+}
+document.getElementById("btn_close").addEventListener("click", form_reset);
+form_reset();
+
+document.getElementById('btn-upper-close').addEventListener('click',form_reset);
