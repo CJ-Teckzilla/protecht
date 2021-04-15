@@ -1,11 +1,19 @@
-document.getElementById('btn_proceed').addEventListener("click", field_validation);
+// On Successful Submission of Merchant Form it will open Modal Pop up for Payment Form
+document.getElementById('merchant_form').addEventListener("submit", function(e){
+    e.preventDefault();
+    field_validation();
+});
 
+// On Successful Submission of Modal Form
 document.getElementById("modal-form").addEventListener("submit", function(e){
     e.preventDefault();
-    modal_field_validation();});
+    retrieve_data();
+    });
 
+// On Closing the form call Add impression API
 document.getElementById("btn_close").addEventListener("click", add_impression);
 
+//Function to call Add impression API
 function add_impression() {
     quote_token = tg.get('token');
     fetch("https://connect-sandbox.ticketguardian.net/api/v2/auth/token/",
@@ -33,13 +41,15 @@ function add_impression() {
     );
 }
 
+// Retrieving Data from Forms
 function retrieve_data() {
     // getting customer Data
-    var customer_details = document.getElementById("customer").getElementsByClassName("form-control");
+    let customer_details = document.getElementById("customer").getElementsByClassName("form-control");
     let customer_data = extract_data(customer_details);
     // getting billing address
     var billing_details = document.getElementById("billing").getElementsByClassName("form-control");
     let billing_address = extract_data(billing_details);
+
     //If customer has marked use billing address as Shipping address then populate the same data of billing
     if (document.getElementById("sameasbilling").checked == true){
          let shipping_address = billing_address;
@@ -55,17 +65,23 @@ function retrieve_data() {
     // getting Item Details
     let item_data = document.getElementById("item").getElementsByClassName("form-control");
     let item_details = extract_data(item_data);
-    //getting card Details
-    let card_data = document.getElementById("card").getElementsByClassName("form-control");
-    let card_details = extract_data(card_data);
-    // Retrieving Email Address and storing it in customer_data instance
-    customer_data["email"] = document.getElementById("email").value;
+    // Manually Doing Changes
+    customer_data["first_name"] = $('#cardholdername').val().substr(0, $('#cardholdername').val().indexOf(' '));
+    customer_data["last_name"] = $('#cardholdername').val().substr($('#cardholdername').val().indexOf(' ')+1);
+    customer_data["email"] = $('#email').val();
+    // Card Details
+    let card_details = {
+        "number" : $('#number').val().replace(/\s+/g,""),
+        "cvv" : $('#cvv').val(),
+        "expiry_month" : $('#expiry_month').val().slice(0,2),
+        "expiry_year" : $('#expiry_month').val().slice(3,),
+    };
     // consolading the required data
     let all_data = {
         "quote": tg.get("token"),
         "customer": customer_data,
         "billing_address": billing_address,
-        "ship_to_billing_addr": true,
+        "ship_to_billing_addr": shipping_address_status,
         "card": card_details,
         "order_number": order_number,
         "currency": "USD",
@@ -114,81 +130,27 @@ function send_request(all_data){
                     });
             }
 
+
+// Extracting Data from forms
 function extract_data(data){
     let new_data = {};
     for (let i=0; i<data.length; i++){
-       new_data[data[i].id] = data[i].value;
+       new_data[data[i].name] = data[i].value;
     }
     return new_data;
 }
 
+// On Successful submission of Merchant Form This function will be called
 function field_validation(){
-     const required_fields = ["order_number", "first_name", "last_name", "address1", "city", "state", "zip_code", "country","name", "reference_number", "cost"];
-     const messages = ["Order Number", "First Name", "Last Name", "Address 1", "City", "State", "Zip Code", "Country", "Name", "Reference Number", "Cost"];
-     let error = false;
-    // Validating Field
-    for(let x in required_fields){
-            field = document.getElementById(required_fields[x]);
-            if (field.value === ""){
-                setErrorFor(field, messages[x] +" is required field");
-                error = true;
-
-            }
-            else{
-                setSuccessFor(field);
-            }
-    }
-
-    if (error == false){
+        var fname = $('#first_name').val();
+        var lname = $('#last_name').val();
+        $('#cardholdername').val(fname+' '+ lname);
+        $('#email').val($('#email_form').val());
+        $('#address').val($('#address1').val());
+        $('#postal_code').val($('#zip_code').val());
         document.getElementById("btn_modal").click();
-
     }
 
-}
-//
-function modal_field_validation(){
-     const required_fields = ["email", "number", "expiry_month",  "cvv"];
-     const messages = ["Email", "Card Number", "Expiry Date", "CVV"];
-     let error = false;
-    // Validating Field
-    for(let x in required_fields){
-            field = document.getElementById(required_fields[x]);
-            if (field.value === ""){
-                setErrorFor(field, messages[x] +" is required field");
-                error = true;
-            }
-            else{
-                setSuccessFor(field);
-            }
-    }
-
-    if (error == false){
-        retrieve_data();
-    }
-
-}
-//
-function setErrorFor(input, message) {
-	const formControl = input.parentElement;
-	const label = formControl.querySelector('label');
-	label.className = 'bmd-label-floating text-danger';
-	const small = formControl.querySelector('small');
-	input.className = 'form-control error';
-	small.innerText = message;
-	small.className = "text-danger";
-}
-//
-function setSuccessFor(input) {
-    const formControl = input.parentElement;
-	const label = formControl.querySelector('label');
-	label.className = 'bmd-label-floating';
-	const small = formControl.querySelector('small');
-	input.className = 'form-control';
-	small.innerText = "";
-	small.className = "";
-}
-//
-//
 $("#expiry_month").focusout(function(){
     expiry_date = this.value;
     expiry_month = expiry_date.slice(0,2);
@@ -225,7 +187,6 @@ $("#expiry_month").focusout(function(){
 //
 $("#number").keyup(change_png);
 $("#number").focusout(change_png);
-
 
 $("#cvv").focusout(function(){
     card_num = document.getElementById("number");
@@ -313,10 +274,12 @@ function change_png(){
     }
   }
 
+
+// Emptying the input values for modal_form
 function form_reset(){
     document.getElementById("modal-form").reset();
 }
+// Calling form_reset() function to clear the values of input
 document.getElementById("btn_close").addEventListener("click", form_reset);
+// Calling form_reset on page load
 form_reset();
-
-document.getElementById('btn-upper-close').addEventListener('click',form_reset);
