@@ -25,7 +25,7 @@ SECRET_KEY = '79k)h-kpcc2*y$dsxs$iv+rkb^gb%f0)4&gt-2mi^b)=hnrqv0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "protecht-test.herokuapp"]
+ALLOWED_HOSTS = ["127.0.0.1", "protecht-test.herokuapp.com"]
 
 
 # Application definition
