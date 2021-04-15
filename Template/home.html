@@ -55,191 +55,201 @@
     <div class="row">
     <div class="bg-white border col-lg-8 m-auto p-5">
     <div id="display-error"></div>
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="pills-customer-details-tab" data-toggle="pill" href="#pills-customer-details" role="tab" aria-controls="pills-customer-details" aria-selected="true">Customer Details</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="pills-billing-address-tab" data-toggle="pill" href="#pills-billing-address" role="tab" aria-controls="pills-billing-address" aria-selected="false">Billing Address</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="pills-shipping-address-tab" data-toggle="pill" href="#pills-shipping-address" role="tab" aria-controls="pills-shipping-address" aria-selected="false">Shipping Address</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="pills-item-details-tab" data-toggle="pill" href="#pills-item-details" role="tab" aria-controls="pills-item-details" aria-selected="false">Item Details</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-customer-details" role="tabpanel" aria-labelledby="pills-customer-details-tab">
-            <div class="row" id="customer">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="first_name" class="bmd-label-floating">First Name</label>
-                        <input type="text" name="first_name" id="first_name" class="form-control-sm form-control" required>
-                        <small></small>
+        <form method="post" id="merchant_form">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-customer-details-tab" data-toggle="pill" href="#pills-customer-details" role="tab" aria-controls="pills-customer-details" aria-selected="true">Customer Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-billing-address-tab" data-toggle="pill" href="#pills-billing-address" role="tab" aria-controls="pills-billing-address" aria-selected="false">Billing Address</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-shipping-address-tab" data-toggle="pill" href="#pills-shipping-address" role="tab" aria-controls="pills-shipping-address" aria-selected="false">Shipping Address</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-item-details-tab" data-toggle="pill" href="#pills-item-details" role="tab" aria-controls="pills-item-details" aria-selected="false">Item Details</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <!--  Customer Form-->
+                <div class="tab-pane fade show active" id="pills-customer-details" role="tabpanel" aria-labelledby="pills-customer-details-tab">
+                    <div class="row" id="customer">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="first_name" class="bmd-label-floating">First Name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control-sm form-control" required>
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="last_name" class="bmd-label-floating">Last Name</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control-sm form-control" required>
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="phone" class="bmd-label-floating">Phone</label>
+                                <input type="text" name="phone" id="phone" class="form-control-sm form-control" >
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="email_form" class="bmd-label-floating">Email</label>
+                                <input type="email" name="email" id="email_form" class="form-control-sm form-control" required>
+                                <small></small>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="last_name" class="bmd-label-floating">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" class="form-control-sm form-control" required>
-                        <small></small>
+                <!-- Billing Address Form-->
+                <div class="tab-pane fade" id="pills-billing-address" role="tabpanel" aria-labelledby="pills-billing-address-tab">
+                    <div class="row" id="billing">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="address1" class="bmd-label-floating">Address 1</label>
+                                <input type="text" name="address1" id="address1" class="form-control-sm form-control" required>
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="address2" class="bmd-label-floating">Address 2</label>
+                                <input type="text" name="address2" id="address2" class="form-control-sm form-control">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="city" class="bmd-label-floating">City</label>
+                                <input type="text" name="city" id="city" class="form-control-sm form-control" required>
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="state" class="bmd-label-floating">State</label>
+                                <input type="text" name="state" id="state" class="form-control-sm form-control" required minlength="2" maxlength="2">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="zip_code" class="bmd-label-floating">Zip Code</label>
+                                <input type="text" name="zip_code" id="zip_code" class="form-control-sm form-control" required>
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="country" class="bmd-label-floating">Country</label>
+                                <input type="text" name="country" id="country" class="form-control-sm form-control" required minlength="3" maxlength="3">
+                                <small></small>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="phone" class="bmd-label-floating">Phone</label>
-                        <input type="text" name="phone" id="phone" class="form-control-sm form-control" >
-                        <small></small>
+                <!-- Shipping Address Form-->
+                <div class="tab-pane fade" id="pills-shipping-address" role="tabpanel" aria-labelledby="pills-shipping-address-tab">
+                    <div class="row" id="shipping">
+                        <div class="col-lg-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked id="sameasbilling">Use Same as Billing Address
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="shipping_address1" class="bmd-label-floating">Address 1</label>
+                                <input type="text" name="address1" id="shipping_address1" class="form-control-sm form-control">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="shipping_address2" class="bmd-label-floating">Address 2</label>
+                                <input type="text" name="address2" id="shipping_address2" class="form-control-sm form-control">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="shipping_city" class="bmd-label-floating">City</label>
+                                <input type="text" name="city" id="shipping_city" class="form-control-sm form-control">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="shipping_state" class="bmd-label-floating">State</label>
+                                <input type="text" name="state" id="shipping_state" class="form-control-sm form-control">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="shipping_zip_code" class="bmd-label-floating">Zip Code</label>
+                                <input type="text" name="zip_code" id="shipping_zip_code" class="form-control-sm form-control">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="shipping_country" class="bmd-label-floating">Country</label>
+                                <input type="text" name="country" id="shipping_country" class="form-control-sm form-control">
+                                <small></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Item Details Form-->
+                <div class="tab-pane fade" id="pills-item-details" role="tabpanel" aria-labelledby="pills-item-details-tab">
+                    <div class="row" id="item">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="name" class="bmd-label-floating">Name</label>
+                                <input type="text" name="name" id="name" class="form-control-sm form-control" value="Mobile">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="reference_number" class="bmd-label-floating">Reference Number</label>
+                                <input type="text" name="reference_number" id="reference_number" class="form-control-sm form-control" value="1234">
+                                <small></small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="cost" class="bmd-label-floating">Cost</label>
+                                <input type="text" name="cost" id="cost" class="form-control-sm form-control" value="1">
+                                <small></small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="pills-billing-address" role="tabpanel" aria-labelledby="pills-billing-address-tab">
-            <div class="row" id="billing">
+            <hr>
+            <div class="row" id="general">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="address1" class="bmd-label-floating">Address 1</label>
-                        <input type="text" name="address1" id="address1" class="form-control-sm form-control">
+                        <label for="order_number" class="bmd-label-floating">Order Number</label>
+                        <input type="text" name="order_number" id="order_number" class="form-control-sm form-control" required>
                         <small></small>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="address2" class="bmd-label-floating">Address 2</label>
-                        <input type="text" name="address2" id="address2" class="form-control-sm form-control">
-                        <small></small>
+                        <label for="currency" class="bmd-label-floating">Currency</label>
+                        <input type="text" name="currency" id="currency" class="form-control-sm form-control" value="USD" required>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="city" class="bmd-label-floating">City</label>
-                        <input type="text" name="city" id="city" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="state" class="bmd-label-floating">State</label>
-                        <input type="text" name="state" id="state" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="zip_code" class="bmd-label-floating">Zip Code</label>
-                        <input type="text" name="zip_code" id="zip_code" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="country" class="bmd-label-floating">Country</label>
-                        <input type="text" name="country" id="country" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary btn-raised mt-3" id="btn_proceed">Proceed Further</button>
             </div>
-        </div>
-        <div class="tab-pane fade" id="pills-shipping-address" role="tabpanel" aria-labelledby="pills-shipping-address-tab">
-            <div class="row" id="shipping">
-                <div class="col-lg-12">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" checked id="sameasbilling">Use Same as Billing Address
-                        </label>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="shipping_address1" class="bmd-label-floating">Address 1</label>
-                        <input type="text" name="shipping_address1" id="shipping_address1" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="shipping_address2" class="bmd-label-floating">Address 2</label>
-                        <input type="text" name="shipping_address2" id="shipping_address2" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="shipping_city" class="bmd-label-floating">City</label>
-                        <input type="text" name="shipping_city" id="shipping_city" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="shipping_state" class="bmd-label-floating">State</label>
-                        <input type="text" name="shipping_state" id="shipping_state" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="shipping_zip_code" class="bmd-label-floating">Zip Code</label>
-                        <input type="text" name="shipping_zip_code" id="shipping_zip_code" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="shipping_country" class="bmd-label-floating">Country</label>
-                        <input type="text" name="shipping_country" id="shipping_country" class="form-control-sm form-control">
-                        <small></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="pills-item-details" role="tabpanel" aria-labelledby="pills-item-details-tab">
-            <div class="row" id="item">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="name" class="bmd-label-floating">Name</label>
-                        <input type="text" name="name" id="name" class="form-control-sm form-control" value="Mobile">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="reference_number" class="bmd-label-floating">Reference Number</label>
-                        <input type="text" name="reference_number" id="reference_number" class="form-control-sm form-control" value="1234">
-                        <small></small>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="cost" class="bmd-label-floating">Cost</label>
-                        <input type="text" name="cost" id="cost" class="form-control-sm form-control" value="1">
-                        <small></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-    <div class="row" id="general">
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label for="order_number" class="bmd-label-floating">Order Number</label>
-                <input type="text" name="order_number" id="order_number" class="form-control-sm form-control" required>
-                <small></small>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label for="currency" class="bmd-label-floating">Currency</label>
-                <input type="text" name="currency" id="currency" class="form-control-sm form-control" value="USD" required>
-            </div>
-        </div>
-    </div>
-
-
-    <button type="button" class="btn btn-primary btn-raised mt-3" id="btn_proceed">Proceed Further</button>
+        </form>
     </div>
     </div>
     <button type="button" class="btn btn-primary" id="btn_modal" data-toggle="modal" data-target="#staticBackdrop" hidden>Proceed Further</button>
@@ -252,12 +262,8 @@
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="staticBackdropLabel">Payment Details</h5>
-        <button type="button" class="btn-close" data-dismiss="modal"  aria-label="Close" id="btn-upper-close"></button>
-      </div>
       <form method="POST" id="modal-form">
-      <div class="modal-body">
+      <div class="modal-body" id="modal_body">
           <div id="tg-placeholder"></div>
           <div class="container">
           <div class="row">
@@ -266,10 +272,16 @@
             <div class="row">
             <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="cardholdername" class="bmd-label-floating"></label>
+                            <input type="text" name="email" id="cardholdername" class="form-control form-control input-form" placeholder="Cardholder Name" required>
+                            <small></small>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
                         <div class="form-group">
                             <label for="email" class="bmd-label-floating"></label>
-
                             <input type="email" name="email" id="email" class="form-control form-control input-form" placeholder="Email" required>
                             <small></small>
                         </div>
@@ -278,7 +290,6 @@
                 <div class="row" id="card">
                     <div class="col-lg-6">
                         <div class="input-group" style="padding-top:24px">
-
                             <label for="number" class="bmd-label-floating"></label>
                             <input type="text" name="number" id="number" placeholder = "Card Number"class="form-control form-control input-form"required>
                             <span class="input-group-text" id="basic-addon1"><img id = "card-img" src="{% static 'img/all_other.png' %}" width="30px;" height="20px;"></span>
@@ -299,6 +310,19 @@
                             <small></small>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="address" class="bmd-label-floating"></label>
+                            <input type="text" name="cvv" id="address" class="form-control form-control input-form" placeholder="Address" required>
+                            <small></small>
+                        </div>
+                    </div><div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="postal_code" class="bmd-label-floating"></label>
+                            <input type="text" name="cvv" id="postal_code" class="form-control form-control input-form"  placeholder="Zip Code" required>
+                            <small></small>
+                        </div>
+                    </div>
                 </div>
             </div>
                 </div>
@@ -306,9 +330,9 @@
         </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-outline input-form" data-dismiss="modal" id="btn_close">Close</button>
-        <input type="submit" value="Make Payment" class="btn btn-success btn-outline input-form" id="submit_data">
+      <div class="modal-footer d-flex justify-content-start">
+          <input type="submit" value="Protect Your Purchase" class="btn btn-success btn-outline input-form" id="submit_data">
+          <button type="button" class="btn btn-secondary btn-outline input-form ml-3" data-dismiss="modal" id="btn_close">Decline Protection</button>
       </div>
   </form>
     </div>
