@@ -41,6 +41,12 @@
     .error{
 	    border-color: #e74c3c !important;
 }
+    .modal-lg {
+        max-width: 900px !important;
+}
+ .input-form{
+    font-size:1.125rem !important;
+ }
 </style>
 </head>
 <body>
@@ -244,7 +250,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fw-bold" id="staticBackdropLabel">Payment Details</h5>
@@ -264,7 +270,7 @@
                         <div class="form-group">
                             <label for="email" class="bmd-label-floating"></label>
 
-                            <input type="email" name="email" id="email" class="form-control-sm form-control" placeholder="Email" required>
+                            <input type="email" name="email" id="email" class="form-control form-control input-form" placeholder="Email" required>
                             <small></small>
                         </div>
                     </div>
@@ -274,24 +280,25 @@
                         <div class="input-group" style="padding-top:24px">
 
                             <label for="number" class="bmd-label-floating"></label>
-                            <input type="text" name="number" id="number" placeholder = "Card Number"class="form-control-sm form-control"required>
+                            <input type="text" name="number" id="number" placeholder = "Card Number"class="form-control form-control input-form"required>
                             <span class="input-group-text" id="basic-addon1"><img id = "card-img" src="{% static 'img/all_other.png' %}" width="30px;" height="20px;"></span>
                             <small></small>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <input type="text" name="expiry_month" id="expiry_month" class="form-control form-control" data-mask = "00/00" minlength="5"  placeholder="MM/YY" required>
+                            <label for="expiry_month" class="bmd-label-floating"></label>
+                            <input type="text" name="expiry_month" id="expiry_month" class="form-control form-control input-form" data-mask = "00/00" minlength="5"  placeholder="MM/YY" required>
                             <small></small>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <input type="text" name="cvv" id="cvv" class="form-control form-control" minlength="3" maxlength="3" placeholder="CVV" required>
+                            <label for="cvv" class="bmd-label-floating"></label>
+                            <input type="text" name="cvv" id="cvv" class="form-control form-control input-form" minlength="3" maxlength="3" placeholder="CVV" required>
                             <small></small>
                         </div>
                     </div>
-
                 </div>
             </div>
                 </div>
@@ -300,8 +307,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-outline" data-dismiss="modal" id="btn_close">Close</button>
-        <input type="submit" value="Make Payment" class="btn btn-success btn-outline" id="submit_data">
+        <button type="button" class="btn btn-secondary btn-outline input-form" data-dismiss="modal" id="btn_close">Close</button>
+        <input type="submit" value="Make Payment" class="btn btn-success btn-outline input-form" id="submit_data">
       </div>
   </form>
     </div>

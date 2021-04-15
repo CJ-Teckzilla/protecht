@@ -239,6 +239,19 @@ $("#cvv").focusout(function(){
         }
     }
 });
+
+// for moving the focus from one input box to another
+$('#expiry_month').keyup(function(){
+if(this.value.length == 5){
+        document.getElementById("cvv").focus();
+    }
+});
+
+$('#cvv').keyup(function(){
+    if(this.value.length == this.maxlength){
+        this.focusout();
+    }
+})
 //
 $(document).ready(function(){
   $('#number').payment('formatCardNumber');
@@ -253,23 +266,16 @@ $('#number').focusout(function(){
     }
     else{
         this.setCustomValidity("");
-        cvv = document.getElementById("cvv");
+         cvv = document.getElementById("cvv");
          pattern = new RegExp("^3[47][0-9]{13}$");
          result = pattern.test(card_num);
          if(result == true){
                 cvv.setAttribute("maxlength", "4");
-                if(cvv.value != ""){
-                     if(cvv.value.length!=4){
-                        cvv.setCustomValidity("Invalid Cvv number");
-                    }
-                    else{
-                        cvv.setCustomValidity("");
-                    }
-                }
-
+                cvv.setAttribute("minlength", "4");
             }
           else{
             cvv.setAttribute("maxlength", "3");
+            cvv.setAttribute("minlength", "3");
           }
     }
 });
@@ -277,18 +283,33 @@ $('#number').focusout(function(){
 function change_png(){
   if (/^4/g.test(this.value)){
       document.getElementById("card-img").setAttribute("src", "/static/img/visa.png");
+          if (this.value.length == 19){
+                document.getElementById("expiry_month").focus();
           }
+      }
   else if (/(^5[1-5])|(^2[0-9])/g.test(this.value)) {
       document.getElementById("card-img").setAttribute("src", "/static/img/mastercard.png");
+      if (this.value.length == 19){
+              document.getElementById("expiry_month").focus();
+          }
   }
   else if (/(^3[47])/g.test(this.value)){
       document.getElementById("card-img").setAttribute("src", "/static/img/amex.png");
+      if (this.value.length == 18){
+              document.getElementById("expiry_month").focus();
+          }
   }
   else if(/^6/g.test(this.value)){
       document.getElementById("card-img").setAttribute("src", "/static/img/discover.png");
+      if (this.value.length == 19){
+              document.getElementById("expiry_month").focus();
+          }
   }
   else {
       document.getElementById("card-img").setAttribute("src", "/static/img/all_other.png");
+       if (this.value.length == 19){
+              document.getElementById("expiry_month").focus();
+          }
     }
   }
 
