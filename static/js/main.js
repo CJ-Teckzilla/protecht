@@ -1,14 +1,85 @@
-// On Successful Submission of Merchant Form it will open Modal Pop up for Payment Form
-document.getElementById('merchant_form').addEventListener("submit", function(e){
-    e.preventDefault();
-    field_validation();
+$(function(){
+    $('#merchant_form').bind('submit', function(e){
+         e.preventDefault();
+         // Validating Field
+         var fname = $('#first_name').val();
+         var lname = $('#last_name').val();
+         $('#cardholdername').val(fname+' '+ lname);
+         $('#email').val($('#email_form').val());
+         $('#address').val($('#address1').val());
+         $('#postal_code').val($('#zip_code').val());
+         $.get( "http://127.0.0.1:8000/get-token", function(data) {
+          document.getElementById("token").innerHTML = data;
+        });
+         $('#staticBackdrop').modal('show');
+    });
 });
 
+function merchant_field(){
+    let error = false;
+    const required_fields = ["order_number","currency", "first_name", "last_name", "city", "state", "zip_code", "country","name", "reference_number", "cost"];
+    error = check_fields(required_fields)
+    var state = document.getElementById("state");
+    if (state.value.length != 2){
+         display_err("State field accepts 2 characters.");
+         error = true;
+    }
+    var country = document.getElementById("country");
+    if (country.value.length != 3){
+        display_err("State field accepts 2 characters.");
+        error = true;
+    }
+    var sameasbilling = document.getElementById("sameasbilling");
+    if (sameasbilling.checked == false){
+        const required_shipp_fields = ["shipping_address1", "shipping_state", "shipping_country", "shipping_zip_code", "shipping_city"]
+        error = check_fields(required_shipp_fields);
+        var ship_state = document.getElementById("shipping_state");
+        if (ship_state.value.length != 2){
+            display_err("State field accepts 2 characters.");
+            error = true;
+        }
+        var ship_country = document.getElementById("shipping_country");
+        if (country.value.length != 3){
+            display_err("Country field accepts 3 characters.");
+            error = true;
+        }
+    }
+    return error;
+}
+
+function check_fields(required_fields){
+    var error = false;
+    let errors = [];
+    for(let x in required_fields){
+        field = document.getElementById(required_fields[x]);
+        if (field.value == ""){
+            errors.push(field.name.toUpperCase().replace("_"," ") + " is required field");
+            error = true;
+        }
+    }
+    if(errors){
+        display_err(errors);
+    }
+    return error;
+}
+
 // On Successful Submission of Modal Form
-document.getElementById("modal-form").addEventListener("submit", function(e){
-    e.preventDefault();
-    retrieve_data();
+$(function(){
+    $("#modal-form").bind("submit", function(e){
+        e.preventDefault();
+        if (tg.isFormComplete() == false){
+            const msg= "Please Select one of the option from the above iframe.";
+            display_err(msg);
+        }
+        else{
+            error = merchant_field();
+            if (error == false){
+                retrieve_data();
+            }
+        }
     });
+});
+
 
 // On Closing the form call Add impression API
 document.getElementById("btn_close").addEventListener("click", add_impression);
@@ -91,44 +162,25 @@ function retrieve_data() {
 }
 
 function send_request(all_data){
-   fetch("https://connect-sandbox.ticketguardian.net/api/v2/auth/token/",
-    {
-        method: "POST",
-        headers:{
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({"public_key": "pk_sandbox_c24dc55e4d07719b80c0916ce8a28e4dbf6a048f",
-                "secret_key": "sk_sandbox_ea7865b84b0f4b762bd2d934ad1f750b84b5a3ba"})
-    })
-    .then(response => {return response.json()})
-    .then((data) => {fetch("https://connect-sandbox.ticketguardian.net/api/v2/orders/",
-                    {
-                        method: "POST",
-                        headers: {'Content-type': 'application/json',
-                                  'Accept': 'application/json',
-                                  'Authorization': "JWT " + data.token,
-                                  },
-                        body: JSON.stringify(all_data)
-                    })
-                    .then(response => {
-                             return response.json()})
-                    .then(data1 => {
-                        if(data1.error){
-                            var errors_list = new Array();
-                            for (var x in data1.error.errors){
-                                errors_list.push(data1.error.errors[x].message);
-                                }
-                                document.getElementById("display-error").innerHTML =
-                                 `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                       ${errors_list}
-                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
-                            }
-                        else{
-                               window.location.href = "success/"+data1.order_number
-                        }
-                        });
-                    });
+   token = document.getElementById("token").innerHTML;
+
+   fetch("https://connect-sandbox.ticketguardian.net/api/v2/orders/",
+        {
+            method: "POST",
+            headers: {'Accept': 'application/json',
+                      "Authorization": "JWT "+ token,
+                      'content-type': 'application/json'},
+            body: JSON.stringify(all_data)
+        })
+        .then(response => {
+            if(response.status == 201){
+                on_success_response(response.json());
             }
+            else{
+              on_fail_response(response.json());
+              }
+            });
+        }
 
 
 // Extracting Data from forms
@@ -140,16 +192,6 @@ function extract_data(data){
     return new_data;
 }
 
-// On Successful submission of Merchant Form This function will be called
-function field_validation(){
-        var fname = $('#first_name').val();
-        var lname = $('#last_name').val();
-        $('#cardholdername').val(fname+' '+ lname);
-        $('#email').val($('#email_form').val());
-        $('#address').val($('#address1').val());
-        $('#postal_code').val($('#zip_code').val());
-        document.getElementById("btn_modal").click();
-    }
 
 $("#expiry_month").focusout(function(){
     expiry_date = this.value;
@@ -283,3 +325,45 @@ function form_reset(){
 document.getElementById("btn_close").addEventListener("click", form_reset);
 // Calling form_reset on page load
 form_reset();
+
+
+
+function on_success_response(data){
+    data.then(data1 => {
+        url = document.getElementById("submit_data");
+        url = url.getAttribute("callbackurl");
+        window.location.href = url;
+    });
+}
+
+function on_fail_response(data){
+
+    data.then(data1 => {
+    if (data1.error){
+     let msg = data1.error.errors[0]["message"]
+     if (msg.includes('duplicate') == true){
+            throw "Unable to continue record already exist."
+          }
+      else{
+            throw data1.error.errors[0]["message"]
+      }
+       }
+     else{
+       throw JSON.stringify(data1);
+        }
+    })
+    .catch((err)=> {
+        display_err(err);
+    });
+}
+
+
+function display_err(err){
+    document.getElementById("display-error").innerHTML =
+         `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+               ${err}
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+}
+
+
+
