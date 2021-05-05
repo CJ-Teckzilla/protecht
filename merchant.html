@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Merchant form</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <style>
+        .error{
+            color: #ee8277;
+    	    border-color: #e74c3c !important;
+          }
+        .modal-lg {
+            max-width: 1200px !important;
+            }
+         .input-form{
+            font-size:1.125rem !important;
+         }
+
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+        <div class="bg-white border col-lg-8 m-auto p-5">
+
+            <form method="GET"  id="merchant_form">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-customer-details-tab" data-toggle="pill" href="#pills-customer-details" role="tab" aria-controls="pills-customer-details" aria-selected="true">Customer Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-billing-address-tab" data-toggle="pill" href="#pills-billing-address" role="tab" aria-controls="pills-billing-address" aria-selected="false">Billing Address</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-shipping-address-tab" data-toggle="pill" href="#pills-shipping-address" role="tab" aria-controls="pills-shipping-address" aria-selected="false">Shipping Address</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-item-details-tab" data-toggle="pill" href="#pills-item-details" role="tab" aria-controls="pills-item-details" aria-selected="false">Item Details</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <!--  Customer Form-->
+                    <div class="tab-pane fade show active" id="pills-customer-details" role="tabpanel" aria-labelledby="pills-customer-details-tab">
+                        <div class="row" id="customer">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="first_name" class="bmd-label-floating">First Name</label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control-sm form-control" required>
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="last_name" class="bmd-label-floating">Last Name</label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="phone" class="bmd-label-floating">Phone</label>
+                                    <input type="text" name="phone" id="phone" class="form-control-sm form-control" >
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="email_form" class="bmd-label-floating">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control-sm form-control" required>
+                                    <small></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Billing Address Form-->
+                    <div class="tab-pane fade" id="pills-billing-address" role="tabpanel" aria-labelledby="pills-billing-address-tab">
+                        <div class="row" id="billing">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="address1" class="bmd-label-floating">Address 1</label>
+                                    <input type="text" name="address1" id="address1" class="form-control-sm form-control" required>
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="address2" class="bmd-label-floating">Address 2</label>
+                                    <input type="text" name="address2" id="address2" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="city" class="bmd-label-floating">City</label>
+                                    <input type="text" name="city" id="city" class="form-control-sm form-control" required>
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="state" class="bmd-label-floating">State</label>
+                                    <input type="text" name="state" id="state" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="zip_code" class="bmd-label-floating">Zip Code</label>
+                                    <input type="text" name="zip_code" id="zip_code" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="country" class="bmd-label-floating">Country</label>
+                                    <input type="text" name="country" id="country" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Shipping Address Form-->
+                    <div class="tab-pane fade" id="pills-shipping-address" role="tabpanel" aria-labelledby="pills-shipping-address-tab">
+                        <div class="row" id="shipping">
+                            <div class="col-lg-12">
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="sameasbilling" name="sameasbilling">Use Same as Billing Address
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="shipping_address1" class="bmd-label-floating">Address 1</label>
+                                    <input type="text" name="shipping_address1" id="shipping_address1" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="shipping_address2" class="bmd-label-floating">Address 2</label>
+                                    <input type="text" name="shipping_address2" id="shipping_address2" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="shipping_city" class="bmd-label-floating">City</label>
+                                    <input type="text" name="shipping_city" id="shipping_city" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="shipping_state" class="bmd-label-floating">State</label>
+                                    <input type="text" name="shipping_state" id="shipping_state" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="shipping_zip_code" class="bmd-label-floating">Zip Code</label>
+                                    <input type="text" name="shipping_zip_code" id="shipping_zip_code" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="shipping_country" class="bmd-label-floating">Country</label>
+                                    <input type="text" name="shipping_country" id="shipping_country" class="form-control-sm form-control">
+                                    <small></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item Details Form-->
+                    <div class="tab-pane fade" id="pills-item-details" role="tabpanel" aria-labelledby="pills-item-details-tab">
+                        <div class="row" id="item">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="name" class="bmd-label-floating">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control-sm form-control" required>
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="reference_number" class="bmd-label-floating">Reference Number</label>
+                                    <input type="text" name="reference_number" id="reference_number" class="form-control-sm form-control" required>
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="cost" class="bmd-label-floating">Cost</label>
+                                    <input type="text" name="cost" id="cost" class="form-control-sm form-control" required>
+                                    <small></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" id="general">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="order_number" class="bmd-label-floating">Order Number</label>
+                            <input type="text" name="order_number" id="order_number" class="form-control-sm form-control" required>
+                            <small></small>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="currency" class="bmd-label-floating">Currency</label>
+                            <input type="text" name="currency" id="currency" class="form-control-sm form-control" required value="USD" >
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-raised mt-3" id="btn_proceed" callbackurl="https://sandbox.moderntransact.com/protecht/merchant.html">Protect My Purchase</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body embed-responsive embed-responsive-1by1" id="modal_body">
+                <iframe class="embed-responsive-item" id="payment_gateway" width="1150px" height="100%" frameBorder="0" style="background-color: : #FFFFFF;" ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <script src="js/merchant.js"></script>
+  </body>
+</html>

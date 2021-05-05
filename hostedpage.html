@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>
+      (function(w,d,c,n,s,p){
+        w[n] = w[n] || function () { (w[n].q = w[n].q || []).push(arguments) }, w[n].l = +new Date();
+        s = d.createElement(c), p = d.getElementsByTagName(c)[0];
+        s.async = s.src = 'https://icw.protecht.io/client-widget.min.js';
+        p.parentNode.insertBefore(s, p);
+      })(window,document,'script','tg');
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var costSearch = new URLSearchParams(window.location.search);
+      var cost = costSearch.get("cost");
+      var public_key = costSearch.get("key");
+    </script>
+    <script>
+        tg('configure', {
+          apiKey: public_key,
+          locale: 'en_US',
+          currency: 'USD',
+          costsOfItems: [cost],
+          sandbox: true,
+        });
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <style>
+        .error{
+            color: #ee8277;
+    	      border-color: #e74c3c !important;
+          }
+        .modal-lg {
+            max-width: 900px !important;
+            }
+         .input-form{
+            font-size:1.125rem !important;
+         }
+    </style>
+  </head>
+  <body>
+  <!-- Modal -->
+  <!-- <div class="container"> -->
+        <form method="post" id="modal-form">
+        <div class="modal-body" id="modal_body">
+            <div id="tg-placeholder"></div>
+            <!-- <div class="container"> -->
+                <div id="display-error"></div>
+            <div class="row">
+            <!--    Adding Card Details      -->
+          <div class="col-lg-12">
+              <div id="token" hidden></div>
+              <div class="row">
+              <div class="col-lg-12 col-md-12">
+                  <div class="row">
+                      <div class="col-lg-6 col-md-6">
+                          <div class="form-group">
+                              <label for="cardholdername" class="bmd-label-floating"></label>
+                              <input type="text" name="email" id="cardholdername" class="form-control form-control input-form" placeholder="Cardholder Name" required>
+                              <small></small>
+                          </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6">
+                          <div class="form-group">
+                              <label for="email" class="bmd-label-floating"></label>
+                              <input type="email" name="email" id="email" class="form-control form-control input-form" placeholder="Email" required>
+                              <small></small>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" id="card">
+                      <div class="col-lg-6 col-md-6">
+                          <div class="input-group" style="padding-top:24px">
+                              <label for="number" class="bmd-label-floating"></label>
+                              <input type="text" name="number" id="number" placeholder = "Card Number"class="form-control form-control input-form"required>
+                              <span class="input-group-text" id="basic-addon1"><img id = "card-img" src="img/all_other.png" width="30px;" height="20px;"></span>
+                              <small></small>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                          <div class="form-group">
+                              <label for="expiry_month" class="bmd-label-floating"></label>
+                              <input type="text" name="expiry_month" id="expiry_month" class="form-control form-control input-form" data-mask = "00/00" minlength="5"  placeholder="MM/YY" required>
+                              <small></small>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                          <div class="form-group">
+                              <label for="cvv" class="bmd-label-floating"></label>
+                              <input type="text" name="cvv" id="cvv" class="form-control form-control input-form" minlength="3" maxlength="3" placeholder="CVV" required>
+                              <small></small>
+                          </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6">
+                          <div class="form-group">
+                              <label for="address" class="bmd-label-floating"></label>
+                              <input type="text" name="address" id="address" class="form-control form-control input-form" placeholder="Address" required>
+                              <small></small>
+                          </div>
+                      </div><div class="col-lg-6 col-md-6">
+                          <div class="form-group">
+                              <label for="postal_code" class="bmd-label-floating"></label>
+                              <input type="text" name="zip_code" id="zip_code" class="form-control form-control input-form"  placeholder="Zip Code" required>
+                              <small></small>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                  </div>
+              </div>
+          </div>
+          <!-- </div> -->
+        </div>
+        <div class="modal-footer d-flex justify-content-start">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 justify-content-center">
+              <input type="submit" value="Protect Your Purchase" class="btn btn-success btn-outline input-form" id="submit_data" callbackurl="https://sandbox.moderntransact.com/protecht/merchant.html">
+            </div>
+            <div class="col-lg-6 col-md-6 justify-content-center">
+              <button type="button" class="btn btn-secondary btn-outline input-form ml-3" data-dismiss="modal" id="btn-decline">Decline Protection</button>
+            </div>
+          </div>
+        </div>
+    </form>
+<!-- </div> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+  <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+  <script src="js/protecht.payment.js" type="text/javascript"></script>
+  <script src="js/protecht.js"></script>
+  </body>
+</html>
