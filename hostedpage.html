@@ -32,45 +32,38 @@
             color: #ee8277;
     	      border-color: #e74c3c !important;
           }
-        .modal-lg {
-            max-width: 900px !important;
-            }
          .input-form{
             font-size:1.125rem !important;
          }
     </style>
   </head>
   <body>
-  <!-- Modal -->
-  <!-- <div class="container"> -->
-        <form method="post" id="modal-form">
+    <form method="post" id="modal-form">
         <div class="modal-body" id="modal_body">
             <div id="tg-placeholder"></div>
-            <!-- <div class="container"> -->
-                <div id="display-error"></div>
+            <div id="display-error"></div>
             <div class="row">
-            <!--    Adding Card Details      -->
-          <div class="col-lg-12">
-              <div id="token" hidden></div>
+        <!--    Adding Card Details      -->
+            <div class="col-lg-12">
               <div class="row">
-              <div class="col-lg-12 col-md-12">
-                  <div class="row">
-                      <div class="col-lg-6 col-md-6">
-                          <div class="form-group">
+                <div class="col-lg-12 col-md-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
                               <label for="cardholdername" class="bmd-label-floating"></label>
                               <input type="text" name="email" id="cardholdername" class="form-control form-control input-form" placeholder="Cardholder Name" required>
                               <small></small>
-                          </div>
-                      </div>
-                      <div class="col-lg-6 col-md-6">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
                           <div class="form-group">
                               <label for="email" class="bmd-label-floating"></label>
                               <input type="email" name="email" id="email" class="form-control form-control input-form" placeholder="Email" required>
                               <small></small>
                           </div>
-                      </div>
-                  </div>
-                  <div class="row" id="card">
+                        </div>
+                    </div>
+                    <div class="row" id="card">
                       <div class="col-lg-6 col-md-6">
                           <div class="input-group" style="padding-top:24px">
                               <label for="number" class="bmd-label-floating"></label>
@@ -89,7 +82,7 @@
                       <div class="col-lg-3 col-md-3">
                           <div class="form-group">
                               <label for="cvv" class="bmd-label-floating"></label>
-                              <input type="text" name="cvv" id="cvv" class="form-control form-control input-form" minlength="3" maxlength="3" placeholder="CVV" required>
+                              <input type="text" name="cvv" id="cvv" class="form-control form-control input-form" minlength="3" maxlength="3" placeholder="CVV" pattern="^[0-9]{3,4}$" title="Integers only" required>
                               <small></small>
                           </div>
                       </div>
@@ -99,37 +92,36 @@
                               <input type="text" name="address" id="address" class="form-control form-control input-form" placeholder="Address" required>
                               <small></small>
                           </div>
-                      </div><div class="col-lg-6 col-md-6">
+                      </div>
+                      <div class="col-lg-6 col-md-6">
                           <div class="form-group">
-                              <label for="postal_code" class="bmd-label-floating"></label>
-                              <input type="text" name="zip_code" id="zip_code" class="form-control form-control input-form"  placeholder="Zip Code" required>
+                              <label for="zip_code" class="bmd-label-floating"></label>
+                              <input type="text" name="zip_code" id="zip_code" class="form-control form-control input-form"  placeholder="Zip Code" pattern="(^\d{5}$)|(^\d{5}-\d{4}$)" required>
                               <small></small>
                           </div>
                       </div>
-                  </div>
+                    </div>
+                </div>
               </div>
-                  </div>
-              </div>
-          </div>
-          <!-- </div> -->
-        </div>
-        <div class="modal-footer d-flex justify-content-start">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 justify-content-center">
-              <input type="submit" value="Protect Your Purchase" class="btn btn-success btn-outline input-form" id="submit_data" callbackurl="https://sandbox.moderntransact.com/protecht/merchant.html">
             </div>
-            <div class="col-lg-6 col-md-6 justify-content-center">
-              <button type="button" class="btn btn-secondary btn-outline input-form ml-3" data-dismiss="modal" id="btn-decline">Decline Protection</button>
+        </div>
+        <div class="modal-footer">
+          <div class="row" style="width:100%;">
+            <div class="col-lg-6 col-md-6 ">
+              <input type="submit" value="Protect Your Purchase" class="btn btn-success btn-outline btn-block input-form" id="submit_data">
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <button type="button" class="btn btn-secondary btn-outline btn-block input-form" id="btn-decline">Decline Protection</button>
             </div>
           </div>
         </div>
+    </div>
     </form>
-<!-- </div> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" type="text/javascript"></script>
-  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-  <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
-  <script src="js/protecht.payment.js" type="text/javascript"></script>
-  <script src="js/protecht.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <script src="js/protecht.payment.js'" type="text/javascript"></script>
+    <script src="js/protecht.js" type="text/javascript"></script>
   </body>
 </html>
