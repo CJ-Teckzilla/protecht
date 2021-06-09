@@ -58,16 +58,16 @@ function merchant_field(){
           display_err(["Country field accepts only 2 characters."]);
           error = true;
       }
-      //Validating zip_code field as zip_code field can have only digits no alphabets and specail characters allowed.
+      //Validating zip_code field, as zip_code field can have only digits no alphabets and special characters allowed.
       var zip_code = $('#zip_code').val();
-      if(/^[0-9]+$/g.test(zip_code) == false){
-          display_err(["Zip code accepts only digits no specail characters or alphabets are allowed."]);
+      if( /^[0-9]+$/g.test(zip_code) == false){
+          display_err(["Zip code accepts only digits no special characters or alphabets are allowed."]);
           error = true;
       }
-      // Validating Cost field as cost field can have digits only no alphabets or specail character allowed except from .
+      // Validating Cost field as cost field can have digits only no alphabets or special character allowed except from .
       let cost = searchParams.get("cost");
       if(/^[0-9]+.*[0-9]*$/g.test(cost) == false){
-         display_err(["Cost accepts only digits no specail characters or alphabets are allowed."]);
+         display_err(["Cost accepts only digits no special characters or alphabets are allowed."]);
          error = true;
       }
       // checking whether user wants to keep his shipping address same as billing address or not.
@@ -81,19 +81,19 @@ function merchant_field(){
               // Validating shipping address state field it only accepts 2 alphabets
               var state = searchParams.get("shipping_state");
               if (/^[a-zA-Z]{2}$/g.test(state) == false){
-                   display_err(["State field accepts only 2 characters."]);
+                   display_err(["Shipping State field accepts only 2 characters."]);
                    error = true;
               }
               // Validating shipping address country field it only accepts 2 alphabets
               var country = searchParams.get("shipping_country");
               if (/^[a-zA-Z]{2}$/g.test(country) == false){
-                  display_err(["Country field accepts only 2 characters."]);
+                  display_err(["Shipping Country field accepts only 2 characters."]);
                   error = true;
               }
-              //Validating shipping adress zip_code field as zip_code field can have only digits no alphabets and specail characters allowed.
+              //Validating shipping address zip_code field as zip_code field can have only digits no alphabets and special characters allowed.
               var zip_code = searchParams.get("shipping_zip_code");
               if(/^[0-9]+$/g.test(zip_code) == false){
-                  display_err(["Zip code accepts only digits no specail characters or alphabets are allowed."]);
+                  display_err(["Shipping Zip code accepts only digits no special characters or alphabets are allowed."]);
                   error = true;
               }
            }
@@ -106,8 +106,8 @@ function check_fields(required_fields){
     var error = false;
     let errors = [];
     for(let x in required_fields){
-        field = searchParams.get(required_fields[x]);
-        if (field == ""){
+        let field = searchParams.get(required_fields[x]);
+        if (field == "" || field == null){
             let field_name = required_fields[x].replace("_"," ");
             field_name = field_name.charAt(0).toUpperCase() + field_name.slice(1);
             errors.push(field_name + " is required field");
@@ -121,14 +121,16 @@ function check_fields(required_fields){
 }
 
 
-
 // On Closing the form call Add impression API
 $(function(){
-  $('btn-decline').bind('click',add_impression);
+  $('#btn-decline').bind('click', add_impression);
 });
 
 //Function to call Add impression API
 function add_impression() {
+   $(function(){
+       window.parent.postMessage("Close Iframe", "http://127.0.0.1:5000");
+   });
    let quote_token = tg.get('token');
    fetch("https://api.ticketguardian-sandbox.com/impressions/",
         {
@@ -232,8 +234,6 @@ function send_request(all_data){
         }
 
 
-
-
 $("#expiry_month").focusout(function(){
     expiry_date = this.value;
     expiry_month = expiry_date.slice(0,2);
@@ -241,7 +241,7 @@ $("#expiry_month").focusout(function(){
     pattern = new RegExp("(^[0][1-9]$)|(^[1][012]$)");
     result = pattern.test(expiry_month);
     if(result == false){
-        this.setCustomValidity("Invalid Card Number");
+        this.setCustomValidity("Invalid expiration date");
     }
     else{
         date = new Date();
@@ -249,17 +249,17 @@ $("#expiry_month").focusout(function(){
         year = date.getYear().toString().slice(1,);
         if(year==expiry_year){
             if (expiry_month < mnth) {
-                this.setCustomValidity("Invalid Expiry Date");
+                this.setCustomValidity("Invalid expiration date");
             }
             else{
                 this.setCustomValidity("");
             }
         }
         else if(expiry_year < year){
-            this.setCustomValidity("Invalid Expiry Date");
+            this.setCustomValidity("Invalid expiration date");
         }
         else if ((expiry_year == "")|(expiry_month == "")){
-            this.setCustomValidity("Invalid Expiry Date");
+            this.setCustomValidity("Invalid expiration date");
         }
         else{
             this.setCustomValidity("");
@@ -366,15 +366,13 @@ function form_reset(){
 // Calling form_reset on page load
 form_reset();
 
-
 function on_success_response(data){
     data.then(data1 => {
-      window.location.href = 'https://sandbox.moderntransact.com/protecht/success.html?callbackurl='+callbackurl+"&order_number="+data1.order_number;
+      window.location.href = callbackurl+"?order_number="+data1.order_number;
     });
 }
 
 function on_fail_response(data){
-
     data.then(data1 => {
     if (data1.error){
      let msg = data1.error.errors[0]["message"]
@@ -401,9 +399,10 @@ function display_err(err){
     error_list +=`<li>${err[x]}</li>`;
   }
     document.getElementById("display-error").innerHTML =
-     `<div class="alert alert-danger alert-dismissible fade show">
-      <ul>
+     `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <ul class="list-unstyled">
            ${error_list}
       </ul>
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span></button></div>`;
 }
